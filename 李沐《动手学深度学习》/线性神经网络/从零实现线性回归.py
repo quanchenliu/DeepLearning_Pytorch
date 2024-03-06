@@ -15,7 +15,7 @@ def synthetic_data(w, b, num_examples):  # @save
     X = torch.normal(0, 1, (num_examples, len(w)))  # X ~ N(0,1),[1000, 2]
     y = torch.mv(X, w) + b                          # 通过矩阵乘法计算标签 y, [1000]
     y += torch.normal(0, 0.01, y.shape)             # 按元素加法, 向标签 y 中添加一些噪声以模拟真实世界中的数据
-    return X, y.reshape((-1, 1))                    # [1000, 2], [1000, 1]
+    return X, y.reshape(-1, 1)                    # [1000, 2], [1000, 1]
 
 """读取数据集"""
 def data_iter(batch_size, features, labels):
