@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 # @Time    : 2024/3/5
 # @Author  : quanchenliu
-# @Function: 从零开始实现线性回归模型
+# @Function: 简洁实现线性回归
 
 import numpy as np
 import torch
@@ -19,7 +19,7 @@ def synthetic_data(w, b, num_examples):
 '''读取数据集: 调用现有框架中的API来读取数据集'''
 def load_array(data_arrays, batch_size, is_train=True):             # @save
     dataset = data.TensorDataset(*data_arrays)                      # 将特征张量 features 和标签张量 labels 组合成一个数据集对象
-    return data.DataLoader(dataset, batch_size, shuffle=is_train)   # 创建一个数据加载器对象，批量大小为 10，且打乱数据集顺序
+    return data.DataLoader(dataset, batch_size, shuffle=is_train)   # 创建一个数据加载器对象，批量大小为 10，且打乱数据集顺序（shuffle）
 
 def main():
     true_w = torch.tensor([2, -3.4])                            # [2]
@@ -51,7 +51,6 @@ def main():
     print(f'w的估计误差: {true_w - w.reshape(true_w.shape)}')
     b = net[0].bias.data
     print(f'b的估计误差: {true_b - b}')
-
 
 
 if __name__ == "__main__":
