@@ -17,7 +17,7 @@ def ReLU(X):
 def net(X):
     X = X.reshape(-1, num_inputs)         # [28, 28] --> [1, 784]
     H = ReLU(X @ W1 + b1)                 # @ 表示矩阵乘法
-    return (H @ W2 + b2)
+    return H @ W2 + b2
 
 def main():
     batch_size = 256
