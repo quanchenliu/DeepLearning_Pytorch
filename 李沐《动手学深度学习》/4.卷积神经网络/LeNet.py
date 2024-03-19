@@ -1,7 +1,8 @@
 # -*- coding: utf-8 -*-
 # @Time    : 2024/3/19
 # @Author  : quanchenliu
-# @Function: LeNet(sigmoid 激活函数+平均池化)
+# @Function: LeNet
+
 import matplotlib.pyplot as plt
 import torch
 from torch import nn
