@@ -2,8 +2,9 @@
 # @Time    : 2024/3/20
 # @Author  : quanchenliu
 # @Function: ResNet
-import matplotlib.pyplot as plt
+
 import torch
+from matplotlib import pyplot as plt
 from torch import nn
 from d2l import torch as d2l
 from torch.nn import functional as F
@@ -22,17 +23,17 @@ class Residual(nn.Module):  #save
             self.conv3 = None
 
     def forward(self, X):
-        Y = nn.ReLU(self.bn1(self.conv1(X)))     # [B, C, H, W] 或 [B, C, H/2, W/2]
+        Y = F.relu(self.bn1(self.conv1(X)))     # [B, C, H, W] 或 [B, C, H/2, W/2]
         y = self.bn2(self.conv2(Y))
         if self.conv3:
             X = self.conv3(X)
         Y += X
-        return nn.ReLU(Y)                        # [B, C, H, W] 或 [B, C, H/2, W/2]
+        return F.relu(Y)                        # [B, C, H, W] 或 [B, C, H/2, W/2]
 
 def resnet_block(in_channels, num_channels, num_residuals, first_block=False):
     block_list = []
     for i in range(num_residuals):
-        if i == 0 and not first_block:                                      # i=0且不是第一个模块, 则需要执行 1x1 卷积
+        if i == 0 and not first_block:                                      # i=0且不是第一个模块
             block_list.append(Residual(in_channels, num_channels, use_1x1conv=True, strides=2))
         else:                                                               # 是第一个模块
             block_list.append(Residual(num_channels, num_channels))         # 第一个块要求输入通道数与输出通道数相同
